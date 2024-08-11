@@ -1,2 +1,3 @@
 # Color-picker-website
- Color picker using react
+
+Color picker using react
