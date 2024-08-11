@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import './Asidebar.scss';
+import buttons from './buttons';
+import AsideButton from './AsideButton';
 
 interface AsidebarProps {}
 
@@ -10,15 +12,28 @@ gsap.registerPlugin(useGSAP);
 const Asidebar: React.FC<AsidebarProps> = ({}) => {
     const aside = useRef<HTMLElement | null>(null);
     const blocks = useRef<HTMLDivElement | null>(null);
+    const place = useRef<HTMLDivElement | null>(null);
+    const buttonGsap = useRef<HTMLButtonElement | null>(null);
 
     const handleMouseEnter = () => {
         gsap.to(aside.current, { left: 0, duration: 0.5, ease: 'power2.out' });
         gsap.to(blocks.current, { marginTop: '32px', duration: 0.5, ease: 'power2.out' });
+        gsap.to(place.current, { marginTop: '28px', duration: 0.5, ease: 'power2.out' });
     };
 
     const handleMouseLeave = () => {
         gsap.to(aside.current, { left: '-210px', duration: 0.3, ease: 'power2.out' });
         gsap.to(blocks.current, { marginTop: '0px', duration: 0.3, ease: 'power2.out' });
+        gsap.to(place.current, { marginTop: '48px', duration: 0.3, ease: 'power2.out' });
+    };
+
+    const handleButtonClick = () => {
+        gsap.to(buttonGsap.current, {
+            rotation: '+=360',
+            duration: 1.5,
+            ease: 'power3.inOut',
+            yoyo: true
+        });
     };
 
     return (
@@ -36,33 +51,20 @@ const Asidebar: React.FC<AsidebarProps> = ({}) => {
                 <img src="/public/images/asidebar/logo.svg" alt="logo" />
             </article>
             <div className="blocks" ref={blocks}>
-                <button className="blocks-item flex justify-start items-center my-5">
-                    <img
-                        src="/public/images/asidebar/blocks/create-nev-color.svg"
-                        alt="create nev color"
-                    />
-                    <p className="ml-4">Create new Color</p>
-                </button>
-                <button className="blocks-item flex justify-start items-center my-5">
-                    <img src="/public/images/asidebar/blocks/explore.svg" alt="explore" />
-                    <p className="ml-4">Explore</p>
-                </button>
-                <button className="blocks-item flex justify-start items-center my-5">
-                    <img
-                        src="/public/images/asidebar/blocks/Your favorite.svg"
-                        alt="Your favorite"
-                    />
-                    <p className="ml-4">Your favorite</p>
-                </button>
-                <button className="blocks-item flex justify-start items-center my-5">
-                    <img
-                        src="/public/images/asidebar/blocks/Import from image.svg"
-                        alt="Import from Image"
-                    />
-                    <p className="ml-4">Import from Image</p>
+                {buttons.map((data) => {
+                    return (
+                        <AsideButton
+                            imageSrc={data.src}
+                            imageAlt={data.alt}
+                            buttonText={data.text}
+                        />
+                    );
+                })}
+                <button className="close blocks-item flex justify-center items-center my-5 !bg-blue-standart">
+                    <p className="!text-white">Close this bar</p>
                 </button>
             </div>
-            <div className="place flex justify-center flex-col items-start mt-12">
+            <div className="place flex justify-center flex-col items-start mt-12" ref={place}>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
                     <a href="https://discord.com" className="ml-4 text-description text-base">
@@ -71,19 +73,24 @@ const Asidebar: React.FC<AsidebarProps> = ({}) => {
                 </article>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
-                    <a href="https://discord.com" className="ml-4 text-description text-base">
+                    <a href="https://youtube.com" className="ml-4 text-description text-base">
                         Subscribe to my youtube
                     </a>
                 </article>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
-                    <a href="https://discord.com" className="ml-4 text-description text-base">
+                    <a href="https://google.com" className="ml-4 text-description text-base">
                         And using this awesome site :3
                     </a>
                 </article>
-                <button></button>
+                <button
+                    className="whitespace-nowrap mt-4 relative"
+                    ref={buttonGsap}
+                    onClick={() => handleButtonClick()}>
+                    Animated GSAP
+                </button>
             </div>
-            <div className="input flex">
+            <div className="input flex justify-center items-center">
                 <img src="/public/images/asidebar/username.svg" alt="username" className="mr-4" />
                 <input type="text" placeholder="@Username" />
             </div>

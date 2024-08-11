@@ -8,22 +8,17 @@ aside {
     backdrop-filter: blur(4px);
 
     padding: 24px 24px !important;
-
-    // -webkit-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
-    // -moz-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
-    // box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
 
     &::after {
         width: 310px;
         height: 100%;
-        border-radius: 20px;
         position: absolute;
         top: 0;
         left: 0;
         z-index: -1;
         content: '';
         background: inherit;
-        filter: blur(5px);
         transform: scale(1);
         opacity: 0.5;
         transition: 200ms all ease-in-out 0ms;
@@ -31,6 +26,10 @@ aside {
     &:hover::after {
         transform: scale(0.8);
         opacity: 0;
+
+        -webkit-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
+        box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
     }
 
     & > article:first-child {
@@ -86,14 +85,26 @@ aside {
                 }
             }
         }
+
+        .close {
+            display: none;
+        }
     }
 
     .place {
-        width: 90%;
+        width: 95%;
         padding: 17px 20px;
         border-radius: 20px;
         border: 1px solid #7c58ff;
         background: $main;
+
+        button {
+            border-radius: 20px;
+            background: $blue-standart;
+            padding: 18px 32px;
+            color: $white;
+            font-size: 14pt;
+        }
     }
 
     .input {
@@ -114,6 +125,15 @@ aside {
     }
 }
 
-.active {
-    left: -275px !important;
+@media (max-width: 520px) {
+    aside {
+        width: 100%;
+        left: -500px;
+
+        .blocks {
+            .close {
+                display: inline-block;
+            }
+        }
+    }
 }
