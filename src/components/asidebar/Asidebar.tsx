@@ -1,19 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import './Asidebar.scss';
 import buttons from './buttons';
 import AsideButton from './AsideButton';
+import useAsideStore from '../../store/store';
 
 interface AsidebarProps {}
 
 gsap.registerPlugin(useGSAP);
 
 const Asidebar: React.FC<AsidebarProps> = ({}) => {
+    const { toggleAsideShow, asideShow } = useAsideStore();
+
     const aside = useRef<HTMLElement | null>(null);
     const blocks = useRef<HTMLDivElement | null>(null);
     const place = useRef<HTMLDivElement | null>(null);
     const buttonGsap = useRef<HTMLButtonElement | null>(null);
+
+    useEffect(() => {
+        asideShow ? handleMouseEnter() : handleMouseLeave();
+    }, [asideShow]);
 
     const handleMouseEnter = () => {
         gsap.to(aside.current, { left: 0, duration: 0.5, ease: 'power2.out' });
@@ -36,24 +43,32 @@ const Asidebar: React.FC<AsidebarProps> = ({}) => {
         });
     };
 
+    const toggleAside = () => {
+        toggleAsideShow();
+    };
+
     return (
         <aside
             ref={aside}
-            className="fixed h-svh top-0 flex flex-col justify-start items-center rounded-xl"
-            onMouseEnter={() => handleMouseEnter()}
-            onMouseLeave={() => handleMouseLeave()}>
+            className="aside fixed h-svh top-0 flex flex-col justify-start items-center rounded-xl">
             <article className="flex mb-10 mt-5 select-none justify-between w-full items-center">
                 <p className="ml-4 text-3xl text-white leading-5">
                     React
                     <br />
                     <span className="text-2xl">color picker</span>
                 </p>
-                <img src="/public/images/asidebar/logo.svg" alt="logo" />
+                <img
+                    src="/public/images/asidebar/logo.svg"
+                    alt="logo"
+                    onClick={toggleAside}
+                    className="cursor-pointer"
+                />
             </article>
             <div className="blocks" ref={blocks}>
-                {buttons.map((data) => {
+                {buttons.map((data, index) => {
                     return (
                         <AsideButton
+                            key={index}
                             imageSrc={data.src}
                             imageAlt={data.alt}
                             buttonText={data.text}
@@ -67,32 +82,42 @@ const Asidebar: React.FC<AsidebarProps> = ({}) => {
             <div className="place flex justify-center flex-col items-start mt-12" ref={place}>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
-                    <a href="https://discord.com" className="ml-4 text-description text-base">
+                    <a
+                        href="https://discord.com"
+                        tabIndex={-1}
+                        className="ml-4 text-description text-base">
                         Join my discord
                     </a>
                 </article>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
-                    <a href="https://youtube.com" className="ml-4 text-description text-base">
+                    <a
+                        href="https://youtube.com"
+                        tabIndex={-1}
+                        className="ml-4 text-description text-base">
                         Subscribe to my youtube
                     </a>
                 </article>
                 <article className="flex my-2">
                     <img src="/public/images/asidebar/dots.svg" alt="dots" />
-                    <a href="https://google.com" className="ml-4 text-description text-base">
+                    <a
+                        href="https://google.com"
+                        tabIndex={-1}
+                        className="ml-4 text-description text-base">
                         And using this awesome site :3
                     </a>
                 </article>
                 <button
                     className="whitespace-nowrap mt-4 relative"
                     ref={buttonGsap}
+                    tabIndex={asideShow ? 0 : -1}
                     onClick={() => handleButtonClick()}>
                     Animated GSAP
                 </button>
             </div>
             <div className="input flex justify-center items-center">
                 <img src="/public/images/asidebar/username.svg" alt="username" className="mr-4" />
-                <input type="text" placeholder="@Username" />
+                <input type="text" placeholder="@Username" tabIndex={asideShow ? 0 : -1} />
             </div>
         </aside>
     );

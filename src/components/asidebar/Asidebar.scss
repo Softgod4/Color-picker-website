@@ -1,36 +1,19 @@
 @import '/src/assets/styles/colors.scss';
 @import '/src/assets/styles/mixins';
 
-aside {
+.aside {
     width: 300px;
     left: -210px;
+    border: 2px solid #2b323d;
     background-color: $aside-main;
     backdrop-filter: blur(4px);
 
     padding: 24px 24px !important;
     box-shadow: none;
+    z-index: 9;
 
-    &::after {
-        width: 310px;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        content: '';
-        background: inherit;
-        transform: scale(1);
-        opacity: 0.5;
-        transition: 200ms all ease-in-out 0ms;
-    }
-    &:hover::after {
-        transform: scale(0.8);
-        opacity: 0;
-
-        -webkit-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
-        box-shadow: 10px 0px 30px -10px rgba(0, 0, 0, 0.2);
-    }
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     & > article:first-child {
         p span {
@@ -114,13 +97,18 @@ aside {
         border-radius: 20px;
 
         background-color: $main;
-        color: $grey-standart;
 
         margin-top: auto;
 
         input {
             width: 100%;
             background-color: $main;
+            color: $white;
+
+            &::placeholder {
+                color: $grey-standart;
+                opacity: 0.5;
+            }
         }
     }
 }

@@ -1,0 +1,33 @@
+@import '/src/assets/styles/colors.scss';
+@import '/src/assets/styles/mixins';
+
+.about {
+    border: 1px solid $border-standart;
+    border-radius: 34px;
+    background: $main;
+    @include standart-shadow();
+
+    article {
+        padding: 10px 10px 10px 20px;
+        cursor: default;
+        user-select: none;
+        
+        & > h2 {
+            color: $white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+        & > p {
+            color: $text-description;
+            font-size: 14px;
+        }
+    }
+
+    img {
+        border-radius: 100%;
+        border: 1px solid $blue-standart;
+        width: 60px;
+        height: 60px;
+        padding: 4px;
+    }
+}
