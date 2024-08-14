@@ -3,7 +3,8 @@
 
 .about {
     border: 1px solid $border-standart;
-    border-radius: 34px;
+    border-bottom-right-radius: 34px;
+    border-bottom-left-radius: 34px;
     background: $main;
     @include standart-shadow();
 
@@ -11,7 +12,7 @@
         padding: 10px 10px 10px 20px;
         cursor: default;
         user-select: none;
-        
+
         & > h2 {
             color: $white;
             font-size: 21px;

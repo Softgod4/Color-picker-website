@@ -1,11 +1,13 @@
 import Asidebar from './components/asidebar/Asidebar';
-import MainContent from './components/mainContent/MainContent';
+import ColorPicker from './components/ColorPicker/ColorPicker';
+import Header from './components/header/Header';
 
 const App = () => {
     return (
         <>
             <Asidebar />
-            <MainContent />
+            <Header />
+            <ColorPicker/>
         </>
     );
 };

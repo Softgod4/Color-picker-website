@@ -6,6 +6,7 @@ export default {
             colors: {
                 'blue-standart': '#7c58ff',
                 'description': '#A4A7AD',
+                'color-picker': '#1a222e',
             }
         }
     },
