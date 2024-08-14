@@ -1,3 +1,4 @@
+![Color Picker Screenshot](/public/images/logo.png)
 # Color Picker Website
 
 A modern web application for picking and managing colors. Built with React and various front-end technologies to provide a smooth and interactive user experience.
